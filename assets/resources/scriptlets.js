@@ -1140,26 +1140,25 @@
 
 /// nowebsocketsend-if.js
 (function() {
-	var needle = '{{1}}',
-		wss = window.WebSocket.prototype.send;
-	if (needle === '' || needle === '{{1}}') {
-		needle = '.?';
-	} else if ( needle.slice(0,1) === '/' && needle.slice(-1) === '/' ) {
-		needle = needle.slice(1,-1);
-	} else {
-		needle = needle.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-	}
-	needle = new RegExp(needle);
-	window.WebSocket.prototype.send = function(a) {
-		if (needle.test(a.toString())) {
-			console.log("Document attempted to send a WebSocket message: 
-			return true;
-		} else {
-			return wss(a);
-		}
-	});
+    var needle = '{{1}}',
+        wss = window.WebSocket.prototype.send;
+    if (needle === '' || needle === '{{1}}') {
+        needle = '.?';
+    } else if ( needle.slice(0,1) === '/' && needle.slice(-1) === '/' ) {
+        needle = needle.slice(1,-1);
+    } else {
+        needle = needle.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    }
+    needle = new RegExp(needle);
+    window.WebSocket.prototype.send = function(a) {
+        if (needle.test(a.toString())) {
+            console.log("Document attempted to send a WebSocket message: 
+            return true;
+        } else {
+            return wss(a);
+        }
+    });
 })();
-
 
 // These lines below are skipped by the resource parser.
 // <<<< end of private namespace
